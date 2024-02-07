@@ -6,10 +6,10 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 
 // SETUP
-dotenv.config({ path: "./server/config/.env" });
+dotenv.config({ path: "/Users/Prince/Desktop/stock-trading-simulator/.env" });
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5002;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));

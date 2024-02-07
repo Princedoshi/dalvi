@@ -11,6 +11,7 @@ exports.getStockMetaData = async (req, res) => {
       data: response.data,
     });
   } catch (error) {
+    console.log("f",error)
     return res.status(200).json({
       status: "fail",
     });
@@ -132,16 +133,19 @@ const getRandomTicker = () => {
 exports.getRandomStockData = async (req, res) => {
   try {
     const stock = getRandomTicker();
+    console.log(stock)
 
     const startDate = new Date();
     startDate.setFullYear(startDate.getFullYear() - 3);
     const year = startDate.getFullYear();
     const month = startDate.getMonth() + 1;
     const day = startDate.getDate();
+    console.log(year)
 
     const url = `https://api.tiingo.com/tiingo/daily/${stock.ticker}/prices?startDate=${year}-${month}-${day}&token=${process.env.TIINGO_API_KEY}`;
 
     const response = await Axios.get(url);
+    // console.log("hi",response)
 
     const data = [];
     for (let i = response.data.length - 1; i >= 0; i -= 5) {
@@ -158,7 +162,7 @@ exports.getRandomStockData = async (req, res) => {
       status: "success",
       ticker: stock.ticker,
       name: stock.name,
-      data,
+      response : response.data
     });
   } catch (error) {
     return res.status(200).json({

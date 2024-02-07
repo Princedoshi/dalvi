@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const errorMessage = (res, error) => {
-  return res.status(400).json({ status: "fail", message: error.message });
+  return res.status(400).json({ status: "fails", message: error.message });
 };
 
 exports.registerUser = async (req, res) => {
@@ -89,7 +89,9 @@ exports.loginUser = async (req, res) => {
 exports.validate = async (req, res) => {
   try {
     const token = req.header("x-auth-token");
+    console.log(token)
     if (!token) {
+      console.log("hello")
       return res.json(false);
     }
     const verified = jwt.verify(token, process.env.JWT_SECRET);
